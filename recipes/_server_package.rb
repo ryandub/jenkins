@@ -47,7 +47,9 @@ when 'rhel'
 end
 
 package 'jenkins' do
-  unless node['jenkins']['server']['version'].nil?
+  if node['jenkins']['server']['version'] == "upgrade"
+    action :upgrade
+  elsif !node['jenkins']['server']['version'].nil?
     version node['jenkins']['server']['version']
   end
 end
